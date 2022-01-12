@@ -26,5 +26,7 @@ public final class Constants {
     public static final int PCMCANID = 15;
     public static final int Solenoid0Channel = 0;
     public static final int AButtonID = 1;
-    public static final int BButtonID = 2; 
+    public static final int BButtonID = 2;
+    public static final int PCMForwardChannel = 0;
+    public static final int PCMReverseChannel = 1; 
 }

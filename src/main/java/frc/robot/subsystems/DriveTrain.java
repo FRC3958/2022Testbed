@@ -42,6 +42,6 @@ public class DriveTrain extends SubsystemBase {
 
   public void drivingMethod(double forward, double turn) {
     diffDrive.arcadeDrive(turn, forward, true);
-    
+   
   }
 }

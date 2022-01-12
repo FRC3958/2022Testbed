@@ -5,10 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveTrain;
@@ -30,7 +32,7 @@ public class RobotContainer {
 
   private final DrivingCommand m_drivingCommand = new DrivingCommand(m_driveTrain, m_xc);
   private final Compressor m_compressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.CTREPCM);
-  private static final Solenoid m_S = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Solenoid0Channel);
+  private final DoubleSolenoid m_ds = new DoubleSolenoid(Constants.PCMCANID, PneumaticsModuleType.CTREPCM, Constants.PCMForwardChannel, Constants.PCMReverseChannel);
   
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -57,8 +59,8 @@ public class RobotContainer {
       .whenReleased(() -> m_compressor.disable()); 
 
     new JoystickButton(m_xc, Constants.BButtonID)
-      .whenPressed(() -> m_S.set(true))
-      .whenReleased(() -> m_S.set(false));
+      .whenPressed(() -> m_ds.set(Value.kForward))
+      .whenReleased(() -> m_ds.set(Value.kReverse));
   }
 
   /**
