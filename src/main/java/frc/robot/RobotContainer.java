@@ -39,7 +39,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_compressor.disable();
+    m_compressor.disable(); //disables the compressor
     // Configure the button bindings
     configureButtonBindings();
   }
