@@ -15,6 +15,8 @@ import frc.robot.commands.DrivingCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -29,17 +31,19 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final XboxController m_xc = new XboxController(Constants.Controller0ID);
+  private final Limelight m_limelight = new Limelight(); 
 
   private final DrivingCommand m_drivingCommand = new DrivingCommand(m_driveTrain, m_xc);
   private final Compressor m_compressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.CTREPCM);
   private final DoubleSolenoid m_ds = new DoubleSolenoid(Constants.PCMCANID, PneumaticsModuleType.CTREPCM, Constants.PCMForwardChannel, Constants.PCMReverseChannel);
-  
+  private final Shooter m_shooter = new Shooter(); 
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_compressor.disable(); 
+    m_limelight.turnLEDOff();
         // Configure the button bindings
     configureButtonBindings();
   }
@@ -61,7 +65,18 @@ public class RobotContainer {
     new JoystickButton(m_xc, Constants.BButtonID)
       .whenPressed(() -> m_ds.set(Value.kForward))
       .whenReleased(() -> m_ds.set(Value.kReverse));
+
+    new JoystickButton(m_xc, Constants.StartButtonID)
+      .whenPressed(() -> m_limelight.turnLEDOn())
+      .whenReleased(() -> m_limelight.turnLEDOff());
+
+    new JoystickButton(m_xc, Constants.XButtonID)
+      .whenPressed(() -> m_shooter.setToPercentSpeed(0.5))
+      .whenReleased(() -> m_shooter.setToPercentSpeed(0));
+
   }
+
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

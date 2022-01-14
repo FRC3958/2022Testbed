@@ -29,4 +29,15 @@ public final class Constants {
     public static final int BButtonID = 2;
     public static final int PCMForwardChannel = 0;
     public static final int PCMReverseChannel = 1; 
+    public static final int StartButtonID = 8; 
+    public static final double LimelightHeight = 10.625;
+    public static final double TargetHeight = 29;
+    public static final double HeightOffset = 18.375; 
+    public static final double LimelightFixedAngle = 7.487; 
+    public static final double kF = 0.05; 
+    public static final double kP = 0.05; 
+    public static final double kI = 0.0; 
+    public static final double kD = 0.0;
+    public static final int FXCANID = 21;
+    public static final int XButtonID = 3; 
 }
