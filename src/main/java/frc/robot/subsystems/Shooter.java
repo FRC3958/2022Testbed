@@ -37,4 +37,12 @@ public class Shooter extends SubsystemBase {
   public void setToPercentSpeed(double speed) {
     m_talon.set(ControlMode.PercentOutput, speed); 
   }
+
+  public double getVelocity() {
+    return  m_talon.getSelectedSensorVelocity(); 
+  }
+
+  public void setToVelocity(double s) {
+    m_talon.set(ControlMode.Velocity, s);
+  }
 }

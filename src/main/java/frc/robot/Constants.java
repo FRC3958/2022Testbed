@@ -34,10 +34,11 @@ public final class Constants {
     public static final double TargetHeight = 29;
     public static final double HeightOffset = 18.375; 
     public static final double LimelightFixedAngle = 7.487; 
-    public static final double kF = 0.05; 
-    public static final double kP = 0.05; 
+    public static final double kF = 0.0; 
+    public static final double kP = 0.1; 
     public static final double kI = 0.0; 
-    public static final double kD = 0.0;
+    public static final double kD = 1.5;
     public static final int FXCANID = 21;
-    public static final int XButtonID = 3; 
+    public static final int XButtonID = 3;
+    public static final int YButtonID = 4; 
 }

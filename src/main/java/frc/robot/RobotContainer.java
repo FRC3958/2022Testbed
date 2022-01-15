@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ShootingCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Limelight;
@@ -44,6 +46,8 @@ public class RobotContainer {
   public RobotContainer() {
     m_compressor.disable(); 
     m_limelight.turnLEDOff();
+    SmartDashboard.putNumber("set speed", 0);
+    SmartDashboard.putData(new ShootingCommand(m_shooter, SmartDashboard.getNumber("set speed", 0)));
         // Configure the button bindings
     configureButtonBindings();
   }
@@ -73,6 +77,9 @@ public class RobotContainer {
     new JoystickButton(m_xc, Constants.XButtonID)
       .whenPressed(() -> m_shooter.setToPercentSpeed(0.5))
       .whenReleased(() -> m_shooter.setToPercentSpeed(0));
+
+    new JoystickButton(m_xc, Constants.YButtonID)
+      .whenHeld(new ShootingCommand(m_shooter, SmartDashboard.getNumber("set speed", 0)));
 
   }
 
