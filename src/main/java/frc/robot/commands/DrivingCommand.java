@@ -30,7 +30,7 @@ public class DrivingCommand extends CommandBase {
   @Override
   public void execute() {
     // new 
-    dt.drivingMethod(xc.getLeftY(), -xc.getRightX());
+    dt.drivingMethod(-xc.getLeftY(), xc.getRightX());
     
   }
 

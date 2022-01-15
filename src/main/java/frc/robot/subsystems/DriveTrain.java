@@ -43,7 +43,7 @@ public class DriveTrain extends SubsystemBase {
     TalonSRXConfiguration configs2 = new TalonSRXConfiguration();
 		configs2.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
 
-    frontLeft.configAllSettings(configs1); 
+    backLeft.configAllSettings(configs1); 
     backRight.configAllSettings(configs2); 
 
 

@@ -16,9 +16,9 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  */
 public final class Constants {
 
-    public static final int frontLeftMotorID = 5;
-    public static final int backLeftMotorID = 2;
-    public static final int frontRightMotorID = 3;
+    public static final int frontLeftMotorID = 2;
+    public static final int backLeftMotorID = 1;
+    public static final int frontRightMotorID = 8;
     public static final int backRightMotorID = 4;
     public static final int LeftJoystickYAxis = 1;
     public static final int RightJoystickXAxis = 4;
@@ -43,5 +43,5 @@ public final class Constants {
     public static final int YButtonID = 4;
     public static final int kTimeout = 30;
     public static final double QuadEncoderResolution = 4096;
-    public static final double WheelDiameter = 0.1016; 
+    public static final double WheelDiameter = 0.1524; 
 }
