@@ -40,5 +40,8 @@ public final class Constants {
     public static final double kD = 1.5;
     public static final int FXCANID = 21;
     public static final int XButtonID = 3;
-    public static final int YButtonID = 4; 
+    public static final int YButtonID = 4;
+    public static final int kTimeout = 30;
+    public static final double QuadEncoderResolution = 4096;
+    public static final double WheelDiameter = 0.1016; 
 }
