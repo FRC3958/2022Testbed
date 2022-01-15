@@ -45,6 +45,8 @@ public class DriveTrain extends SubsystemBase {
 
     backLeft.configAllSettings(configs1); 
     backRight.configAllSettings(configs2); 
+    frontLeft.configFactoryDefault();
+    frontRight.configFactoryDefault(); 
 
 
     frontLeft.setNeutralMode(NeutralMode.Coast);
@@ -72,7 +74,7 @@ public class DriveTrain extends SubsystemBase {
       getLeftDistanceMeters(),
       getRightDistanceMeters()
     );
-
+    SmartDashboard.putNumber("heading", getHeading());
     SmartDashboard.putNumber("y traveled in meter", m_odometry.getPoseMeters().getY());
     SmartDashboard.putNumber("x traveled in meter", m_odometry.getPoseMeters().getX());
   }
@@ -80,6 +82,14 @@ public class DriveTrain extends SubsystemBase {
   public void drivingMethod(double forward, double turn) {
     diffDrive.arcadeDrive(turn, forward, true);
    
+  }
+
+  public double getCurrentY() {
+    return m_odometry.getPoseMeters().getY();
+  }
+  
+  public double getCurrentX() {
+    return m_odometry.getPoseMeters().getX();
   }
 
 
