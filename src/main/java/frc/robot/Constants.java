@@ -42,6 +42,7 @@ public final class Constants {
     public static final int XButtonID = 3;
     public static final int YButtonID = 4;
     public static final int kTimeout = 30;
-    public static final double QuadEncoderResolution = 4096;
+    public static final double QuadEncoderResolution = 2048; //TODO this should be 4096, but the robot was going double the distance
     public static final double WheelDiameter = 0.1524; 
+    public static final double AngleTolerance = 5; 
 }

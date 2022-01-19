@@ -15,6 +15,7 @@ public class DriveToDistance extends CommandBase {
   private double startingPointX = 0; 
   private double startingPointY = 0; 
 
+
   public DriveToDistance(DriveTrain d, double dtt) {
     m_dt = d;
     distanceToTravel = dtt; 
@@ -32,18 +33,25 @@ public class DriveToDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      m_dt.drivingMethod((distanceToTravel-distanceTravelled)/distanceToTravel, 0);
+    System.out.println("ended with" + distanceTravelled + " " + distanceToTravel); 
+    double x = Math.pow(m_dt.getCurrentX()-startingPointX, 2);
+    double y = Math.pow(m_dt.getCurrentY()-startingPointY, 2);
+    double distanceTravelled = Math.pow(x+y, 0.5); 
+      m_dt.drivingMethod(-0.2*(distanceToTravel-distanceTravelled)/distanceToTravel, 0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    
       m_dt.drivingMethod(0, 0);
+      System.out.println("ended with" + distanceTravelled + " " + distanceToTravel); 
+      
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return distanceTravelled-distanceToTravel < 0.1;
+    return Math.abs(distanceToTravel-distanceTravelled) < 0.1;
   }
 }

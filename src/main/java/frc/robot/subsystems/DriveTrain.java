@@ -74,9 +74,8 @@ public class DriveTrain extends SubsystemBase {
       getLeftDistanceMeters(),
       getRightDistanceMeters()
     );
+    
     SmartDashboard.putNumber("heading", getHeading());
-    SmartDashboard.putNumber("y traveled in meter", m_odometry.getPoseMeters().getY());
-    SmartDashboard.putNumber("x traveled in meter", m_odometry.getPoseMeters().getX());
   }
 
   public void drivingMethod(double forward, double turn) {

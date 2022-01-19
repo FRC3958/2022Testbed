@@ -31,7 +31,7 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     double velocity = m_talon.getSelectedSensorVelocity();
 
-    SmartDashboard.putNumber("FX Velocity", 9560-velocity); 
+    //SmartDashboard.putNumber("FX Velocity", 9560-velocity); 
   }
 
   public void setToPercentSpeed(double speed) {
