@@ -17,7 +17,7 @@ public class TurnToAngle extends CommandBase {
   private long startTime; 
   public TurnToAngle( DriveTrain m_drt, double ga) {
     m_dt = m_drt; 
-    goalAngle = 90; 
+    goalAngle = ga; 
     
 
     // Use addRequirements() here to declare subsystem dependencies
@@ -35,7 +35,7 @@ public class TurnToAngle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_dt.drivingMethod(0, -0.75*(goalAngle-(m_dt.getHeading()-startingAngle))/Math.abs(goalAngle));
+    m_dt.drivingMethod(0, -0.9*(goalAngle-(m_dt.getHeading()-startingAngle))/Math.abs(goalAngle));
   }
 
   // Called once the command ends or is interrupted.
@@ -50,6 +50,6 @@ public class TurnToAngle extends CommandBase {
   public boolean isFinished() {
     double howFarTurned = m_dt.getHeading()-startingAngle; 
     long timeRunning = System.currentTimeMillis() - startTime; 
-    return ((Math.abs(howFarTurned)-Math.abs(goalAngle)) < Constants.AngleTolerance && (Math.abs(howFarTurned)-Math.abs(goalAngle)) > -Constants.AngleTolerance) || timeRunning > 3000;
+    return ((Math.abs(howFarTurned)-Math.abs(goalAngle)) < Constants.AngleTolerance && (Math.abs(howFarTurned)-Math.abs(goalAngle)) > -Constants.AngleTolerance) || timeRunning > 6000;
   }
 }

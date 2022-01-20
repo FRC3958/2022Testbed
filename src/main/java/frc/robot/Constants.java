@@ -16,10 +16,10 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  */
 public final class Constants {
 
-    public static final int frontLeftMotorID = 2;
-    public static final int backLeftMotorID = 1;
-    public static final int frontRightMotorID = 8;
-    public static final int backRightMotorID = 4;
+    public static final int frontLeftMotorID = 11;
+    public static final int backLeftMotorID = 10;
+    public static final int frontRightMotorID = 12;
+    public static final int backRightMotorID = 13;
     public static final int LeftJoystickYAxis = 1;
     public static final int RightJoystickXAxis = 4;
     public static final int Controller0ID = 0;
