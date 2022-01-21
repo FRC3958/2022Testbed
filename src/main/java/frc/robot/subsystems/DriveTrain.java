@@ -44,9 +44,9 @@ public class DriveTrain extends SubsystemBase {
 		configs2.primaryPID.selectedFeedbackSensor = FeedbackDevice.QuadEncoder;
 
     backLeft.configAllSettings(configs1); 
-    backRight.configAllSettings(configs2); 
+    frontRight.configAllSettings(configs2); 
     frontLeft.configFactoryDefault();
-    frontRight.configFactoryDefault(); 
+    backRight.configFactoryDefault(); 
 
 
     frontLeft.setNeutralMode(NeutralMode.Coast);
@@ -79,7 +79,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drivingMethod(double forward, double turn) {
-    diffDrive.arcadeDrive(turn, forward, true);
+    diffDrive.arcadeDrive(-forward, -turn, true);
    
   }
 
@@ -105,7 +105,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public double getRightDistanceMeters() {
-    return getMetersFromNative(backRight.getSelectedSensorPosition());
+    return getMetersFromNative(frontRight.getSelectedSensorPosition());
   }
 
   public void resetEncoders() {

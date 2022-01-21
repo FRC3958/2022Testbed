@@ -17,8 +17,8 @@ public class AutonDrivingFullRoutine extends SequentialCommandGroup {
     m_dt = d; 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new DriveToDistance(m_dt, 0.75),
+    addCommands(new DriveToDistance(m_dt, 0.5),
                 new TurnToAngle(m_dt, 180),
-                new DriveToDistance(m_dt, 0.75));
+                new DriveToDistance(m_dt, 0.5));
   }
 }

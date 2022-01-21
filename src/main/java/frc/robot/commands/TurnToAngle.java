@@ -35,7 +35,12 @@ public class TurnToAngle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_dt.drivingMethod(0, -0.9*(goalAngle-(m_dt.getHeading()-startingAngle))/Math.abs(goalAngle));
+    double error = (goalAngle-(m_dt.getHeading()-startingAngle))/Math.abs(goalAngle);
+
+    error += error < 0.3 ? .225 : 0;
+    error -= error > 0.9 ? 0.1 : 0;
+
+    m_dt.drivingMethod(0, -0.9*error);
   }
 
   // Called once the command ends or is interrupted.

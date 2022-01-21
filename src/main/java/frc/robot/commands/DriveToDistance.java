@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
@@ -38,7 +39,20 @@ public class DriveToDistance extends CommandBase {
     double y = Math.pow(m_dt.getCurrentY()-startingPointY, 2);
     double distanceTravelled = Math.pow(x+y, 0.5); 
     //System.out.println("a " + distanceTravelled + " b " + distanceToTravel);
-    m_dt.drivingMethod(0.9*(distanceToTravel-distanceTravelled)/Math.abs(distanceToTravel), 0);
+    double error = (distanceToTravel-distanceTravelled)/Math.abs(distanceToTravel);
+
+    
+
+    /*
+    if(error<0.4) {
+      error += 0.2; ;
+    }*/
+
+    error += error < 0.4 ? 0.2 : 0;
+    error -= error > 0.8 ? 0.3 : 0;
+
+
+    m_dt.drivingMethod(0.9*error, 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -54,6 +68,10 @@ public class DriveToDistance extends CommandBase {
   @Override
   public boolean isFinished() {
     long runningTime = System.currentTimeMillis() - startTime;
+    double x = Math.pow(m_dt.getCurrentX()-startingPointX, 2);
+    double y = Math.pow(m_dt.getCurrentY()-startingPointY, 2);
+    double distanceTravelled = Math.pow(x+y, 0.5); 
+    SmartDashboard.putNumber("percent error", distanceTravelled); 
     return Math.abs(distanceToTravel) - Math.abs(distanceTravelled) < 0.1 || runningTime > 6000;
    }
   

@@ -15,11 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonDrivingFullRoutine;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.DrivingCommand;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ShootingCommand;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,7 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final XboxController m_xc = new XboxController(Constants.Controller0ID);
   private final Limelight m_limelight = new Limelight(); 
@@ -70,10 +68,10 @@ public class RobotContainer {
 
     m_driveTrain.setDefaultCommand(m_drivingCommand);
 
-    /***new JoystickButton(m_xc, Constants.AButtonID)
-      .whenPressed(() -> m_compressor.enableDigital())
-      .whenReleased(() -> m_compressor.disable()); 
+    new JoystickButton(m_xc, Constants.AButtonID)
+      .whenPressed(() -> m_driveTrain.resetHeading()); 
 
+      /** 
     new JoystickButton(m_xc, Constants.BButtonID)
       .whenPressed(() -> m_ds.set(Value.kForward))
       .whenReleased(() -> m_ds.set(Value.kReverse)); */
