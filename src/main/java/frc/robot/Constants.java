@@ -45,4 +45,6 @@ public final class Constants {
     public static final double QuadEncoderResolution = 2048; //TODO this should be 4096, but the robot was going double the distance
     public static final double WheelDiameter = 0.1524; 
     public static final double AngleTolerance = 5; 
+    public static final int sonicPing = 0;
+    public static
 }
