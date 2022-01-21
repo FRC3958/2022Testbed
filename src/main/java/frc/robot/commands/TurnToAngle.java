@@ -38,7 +38,7 @@ public class TurnToAngle extends CommandBase {
     double error = (goalAngle-(m_dt.getHeading()-startingAngle))/Math.abs(goalAngle);
 
     error += error < 0.3 ? .225 : 0;
-    error -= error > 0.9 ? 0.1 : 0;
+    error -= error > 0.9 ? 0.06 : 0;
 
     m_dt.drivingMethod(0, -0.9*error);
   }
