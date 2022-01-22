@@ -24,8 +24,6 @@ public class UltraSensor extends SubsystemBase {
     // gives out distance from object in millimeters
     return  bat.getValue();
     
-    
-    
   }
 
 
