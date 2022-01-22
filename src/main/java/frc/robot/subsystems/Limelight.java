@@ -29,7 +29,7 @@ public class Limelight extends SubsystemBase {
     SmartDashboard.putNumber("vAO", d_vAO); 
 
     double distance = Constants.HeightOffset/Math.tan(Math.toRadians(Constants.LimelightFixedAngle+d_vAO));
-    SmartDashboard.putNumber("distance estimate", distance); 
+    SmartDashboard.putNumber("distance estimate", distance);
   }
 
   public void turnLEDOn() {
