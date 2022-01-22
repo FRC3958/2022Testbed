@@ -39,4 +39,15 @@ public class UltraSensor extends SubsystemBase {
     SmartDashboard.putNumber("Distance From Sensor", currentDistanceCentimeters);
 
   }
+
+  public double getNativeUnitsFromDistance(){
+    double rawValue = sendWave(); //fetches voltage from analog input 0
+
+    double voltage_scale_factor = 5/RobotController.getVoltage5V(); 
+    double currentDistanceCentimeters = rawValue*voltage_scale_factor * 0.125;
+    
+    double speed = 13837.8254*Math.pow(1.0006, currentDistanceCentimeters);
+
+    return speed;
+  }
 }

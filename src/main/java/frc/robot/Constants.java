@@ -31,9 +31,9 @@ public final class Constants {
     public static final int PCMReverseChannel = 1; 
     public static final int StartButtonID = 8; 
     public static final double LimelightHeight = 10.625;
-    public static final double TargetHeight = 29;
-    public static final double HeightOffset = 18.375; 
-    public static final double LimelightFixedAngle = 7.487; 
+    public static final double TargetHeight = 2.565;
+    public static final double HeightOffset = 2.33; 
+    public static final double LimelightFixedAngle = 33.325; 
     public static final double kF = 0.0; 
     public static final double kP = 0.1; 
     public static final double kI = 0.0; 
@@ -46,5 +46,7 @@ public final class Constants {
     public static final double WheelDiameter = 0.1524; 
     public static final double AngleTolerance = 5; 
     public static final int SonicChannel = 0;
+    public static final int falconMaxSpeed = 19452; 
+    public static final int m_gatewayHolder = 0;
     
 }
