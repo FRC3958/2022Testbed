@@ -33,7 +33,7 @@ public class UltraSensor extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double rawValue = sendWave();
+    double rawValue = sendWave(); //fetches voltage from analog input 0
 
     double voltage_scale_factor = 5/RobotController.getVoltage5V(); 
     double currentDistanceCentimeters = rawValue*voltage_scale_factor * 0.125;
