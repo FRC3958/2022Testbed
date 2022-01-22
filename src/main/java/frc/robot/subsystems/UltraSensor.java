@@ -4,15 +4,17 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class UltraSensor extends SubsystemBase {
 
-  Ultrasonic bat = new Ultrasonic(0, 0);
-  AnalogPotentiometer m_batPotentiometer = new AnalogPotentiometer(0);
-
+  private final AnalogInput bat = new AnalogInput(0);
+  
 
   public UltraSensor(){
 
@@ -20,7 +22,10 @@ public class UltraSensor extends SubsystemBase {
 
   public double sendWave(){
     // gives out distance from object in millimeters
-    return bat.getRangeMM();
+    return  bat.getValue();
+    
+    
+    
   }
 
 
@@ -28,5 +33,12 @@ public class UltraSensor extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    double rawValue = sendWave();
+
+    double voltage_scale_factor = 5/RobotController.getVoltage5V(); 
+    double currentDistanceCentimeters = rawValue*voltage_scale_factor * 0.125;
+    //double currentDistanceInches = rawValue*voltage_scale_factor * 0.0492;
+    SmartDashboard.putNumber("Distance From Sensor", currentDistanceCentimeters);
+
   }
 }

@@ -20,6 +20,7 @@ import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.UltraSensor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -35,6 +36,7 @@ public class RobotContainer {
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final XboxController m_xc = new XboxController(Constants.Controller0ID);
   private final Limelight m_limelight = new Limelight(); 
+  private final UltraSensor m_UltraSensor = new UltraSensor();
 
   private final DrivingCommand m_drivingCommand = new DrivingCommand(m_driveTrain, m_xc);
   //private final Compressor m_compressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.CTREPCM);
