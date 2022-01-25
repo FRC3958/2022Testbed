@@ -18,6 +18,7 @@ import frc.robot.commands.DrivingCommand;
 import frc.robot.commands.ShootingCommand;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Gateway;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.UltraSensor;
@@ -42,7 +43,7 @@ public class RobotContainer {
   //private final Compressor m_compressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.CTREPCM);
   //private final DoubleSolenoid m_ds = new DoubleSolenoid(Constants.PCMCANID, PneumaticsModuleType.CTREPCM, Constants.PCMForwardChannel, Constants.PCMReverseChannel);
   private final Shooter m_shooter = new Shooter(); 
-
+  private final Gateway m_gateway = new Gateway();
   
   private final AutonDrivingFullRoutine m_autonCommand = new AutonDrivingFullRoutine(m_driveTrain);
 
@@ -53,7 +54,7 @@ public class RobotContainer {
     SmartDashboard.putNumber("set speed", 0);
     SmartDashboard.putNumber("distance to travel", 0); 
     //SmartDashboard.putNumber("goal angle", 0);
-    SmartDashboard.putData(new ShootingCommand(m_shooter, m_UltraSensor));
+    //SmartDashboard.putData(new ShootingCommand(m_shooter, m_UltraSensor));
         // Configure the button bindings
     configureButtonBindings();
     SmartDashboard.putData(new DriveToDistance(m_driveTrain, SmartDashboard.getNumber("distance to travel", 0)));
@@ -86,8 +87,8 @@ public class RobotContainer {
     //  .whenPressed(() -> m_shooter.setToPercentSpeed(0.5))
     //  .whenReleased(() -> m_shooter.setToPercentSpeed(0));
 
-    //new JoystickButton(m_xc, Constants.YButtonID)
-    //  .whenHeld(new ShootingCommand(m_shooter, SmartDashboard.getNumber("set speed", 0)));
+    new JoystickButton(m_xc, Constants.YButtonID)
+      .whenPressed(new ShootingCommand(m_shooter, m_UltraSensor, m_gateway));
 
   }
 

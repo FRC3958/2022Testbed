@@ -35,8 +35,8 @@ public final class Constants {
     public static final double HeightOffset = 2.33; 
     public static final double LimelightFixedAngle = 33.325; 
     public static final double kF = 0.0; 
-    public static final double kP = 0.1; 
-    public static final double kI = 0.0; 
+    public static final double kP = 0.1125; 
+    public static final double kI = 0.0001; 
     public static final double kD = 1.5;
     public static final int FXCANID = 21;
     public static final int XButtonID = 3;
@@ -48,5 +48,6 @@ public final class Constants {
     public static final int SonicChannel = 0;
     public static final int falconMaxSpeed = 19452; 
     public static final int m_gatewayHolder = 0;
+    public static final int gatewayID = 2; 
     
 }

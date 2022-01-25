@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -17,13 +18,18 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   private WPI_TalonFX m_talon = new WPI_TalonFX(Constants.FXCANID); 
   public Shooter() {
+    m_talon.configFactoryDefault();
     TalonFXConfiguration configs = new TalonFXConfiguration();
 		configs.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
 
     configs.slot0.kF = Constants.kF;
     configs.slot0.kP = Constants.kP;
+    configs.slot0.kI = Constants.kI;
+
+    
 
 		m_talon.configAllSettings(configs);
+    m_talon.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override

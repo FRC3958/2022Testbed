@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.Gateway;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.UltraSensor;
 
@@ -19,13 +20,16 @@ public class ShootingCommand extends CommandBase {
   // way phoenix tuner tells rpm
   double ticks_; 
   long time; 
+
+  Gateway m_gateway;
   // motor that leads ball into shooter 
   //WPI_TalonSRX m_gateway = new WPI_TalonSRX(Constants.m_gatewayHolder);
   boolean done = false; 
 
-  public ShootingCommand(Shooter s,  UltraSensor us) {
+  public ShootingCommand(Shooter s,  UltraSensor us, Gateway g) {
     m_shoot = s;
     ticks_ = us.getNativeUnitsFromDistance(); 
+    m_gateway = g;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_shoot);
   }
@@ -41,6 +45,11 @@ public class ShootingCommand extends CommandBase {
   public void execute() {
     m_shoot.setToVelocity(ticks_);
 
+    SmartDashboard.putNumber("shooter error", ticks_ - m_shoot.getVelocity());
+    if(ticks_ - m_shoot.getVelocity() < 1750) {
+      m_gateway.openGateway();
+    }
+
   
   }
 
@@ -48,13 +57,15 @@ public class ShootingCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
       //SmartDashboard.putNumber("time", System.currentTimeMillis()-time); 
-      m_shoot.setToVelocity(0);
+      m_shoot.setToPercentSpeed(0);
+      m_gateway.closeGateway();
+      System.out.println("shooting command ended " + ticks_); 
       //m_gateway.set(0); 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ticks_ - m_shoot.getVelocity() < 100;
+    return ticks_ - m_shoot.getVelocity() < 700;
   }
 }
