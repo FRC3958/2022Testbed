@@ -12,11 +12,14 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ArduinoDefault;
 import frc.robot.commands.AutonDrivingFullRoutine;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.commands.ShootingCommand;
 import frc.robot.commands.TurnToAngle;
+import frc.robot.subsystems.Arduino;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gateway;
 import frc.robot.subsystems.Limelight;
@@ -45,8 +48,11 @@ public class RobotContainer {
   //private final DoubleSolenoid m_ds = new DoubleSolenoid(Constants.PCMCANID, PneumaticsModuleType.CTREPCM, Constants.PCMForwardChannel, Constants.PCMReverseChannel);
   private final Shooter m_shooter = new Shooter(); 
   private final Gateway m_gateway = new Gateway();
+  private final ColorSensor m_colorSensor = new ColorSensor();
+  private final Arduino m_arduino = new Arduino(); 
   
   private final AutonDrivingFullRoutine m_autonCommand = new AutonDrivingFullRoutine(m_driveTrain);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -71,14 +77,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_driveTrain.setDefaultCommand(m_drivingCommand);
+    //m_arduino.setDefaultCommand(m_arduinoDefaultCommand);
 
     new JoystickButton(m_xc, Constants.AButtonID)
       .whenPressed(() -> m_driveTrain.resetHeading()); 
 
-      /** 
+    
     new JoystickButton(m_xc, Constants.BButtonID)
-      .whenPressed(() -> m_ds.set(Value.kForward))
-      .whenReleased(() -> m_ds.set(Value.kReverse)); */
+      .whenPressed(new ArduinoDefault(m_arduino, m_colorSensor, m_xc));
 
     new JoystickButton(m_xc, Constants.StartButtonID)
       .whenPressed(() -> m_limelight.turnLEDOn())

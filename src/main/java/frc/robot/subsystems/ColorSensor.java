@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorSensorV3.RawColor;
+
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,11 +26,30 @@ public class ColorSensor extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    RawColor detectedColor = ColorSenser.getRawColor();
+    Color detectedColor = ColorSenser.getColor();
 
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    //SmartDashboard.putNumber("Red", detectedColor.red);
+    //SmartDashboard.putNumber("Green", detectedColor.green);
+    //SmartDashboard.putNumber("Blue", detectedColor.blue);
+    
+  }
+
+  public String returnRoundedConcatenatedColorPercents() {
+    String result = "";
+    Color detectedColor = ColorSenser.getColor();
+    double red =  detectedColor.red*100;
+    double green = detectedColor.green*100;
+    double blue =  detectedColor.blue*100;
+
+    SmartDashboard.putNumber("red", red);
+    SmartDashboard.putNumber("g", green);
+    SmartDashboard.putNumber("b", blue);
+
+    result = String.valueOf( (int) red) + String.valueOf( (int) green) + String.valueOf( (int) blue); 
+
+    SmartDashboard.putString("color output", result); 
+
+    return result; 
     
   }
 }
