@@ -22,6 +22,7 @@ public class Arduino extends SubsystemBase {
 
   public void sendMessage(String message) {
     byte[] recieveBuffer = new byte[10];
-    arduino.transaction(message.getBytes(), message.getBytes().length, recieveBuffer, 0);
+    //arduino.transaction(message.getBytes(), message.getBytes().length, recieveBuffer, 0);
+    arduino.writeBulk(message.getBytes(), message.getBytes().length);
   }
 }
