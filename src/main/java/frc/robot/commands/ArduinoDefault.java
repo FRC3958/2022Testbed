@@ -26,13 +26,13 @@ public class ArduinoDefault extends CommandBase {
   @Override
   public void initialize() {
     //m_a.sendMessage("000000");
-    m_a.sendMessage(m_cs.returnRoundedConcatenatedColorPercents());
+    m_a.sendMessage(m_cs.findBallColor());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    //m_a.sendMessage(m_cs.liveResultFromColorSensor());
   }
 
   // Called once the command ends or is interrupted.

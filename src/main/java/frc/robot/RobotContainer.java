@@ -50,6 +50,7 @@ public class RobotContainer {
   private final Gateway m_gateway = new Gateway();
   private final ColorSensor m_colorSensor = new ColorSensor();
   private final Arduino m_arduino = new Arduino(); 
+  //private final ArduinoDefault m_arduinoDefaultCommand = new ArduinoDefault(m_arduino, m_colorSensor, m_xc);
   
   private final AutonDrivingFullRoutine m_autonCommand = new AutonDrivingFullRoutine(m_driveTrain);
 

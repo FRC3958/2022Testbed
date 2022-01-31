@@ -34,18 +34,41 @@ public class ColorSensor extends SubsystemBase {
     
   }
 
-  public String returnRoundedConcatenatedColorPercents() {
+  public String liveResultFromColorSensor() {
+    return returnRoundedConcatenatedColorPercents(ColorSenser.getColor());
+  }
+
+  public String findBallColor() {
+    SmartDashboard.putNumber("greeneeee", ColorSenser.getGreen());
+    if(ColorSenser.getRed() > ColorSenser.getBlue() && ColorSenser.getRed() > ColorSenser.getGreen()) {
+      return returnRoundedConcatenatedColorPercents(Color.kRed);
+    } else if (ColorSenser.getGreen() > ColorSenser.getRed() && ColorSenser.getGreen()*.75 > ColorSenser.getBlue()) {
+      return returnRoundedConcatenatedColorPercents(Color.kGreen);
+    }
+
+    return returnRoundedConcatenatedColorPercents(Color.kBlue);
+  }
+
+  public String returnRoundedConcatenatedColorPercents(Color detectedColor) {
     String result = "";
-    Color detectedColor = ColorSenser.getColor();
-    double red =  detectedColor.red*100;
-    double green = detectedColor.green*100;
-    double blue =  detectedColor.blue*100;
+    //Color detectedColor = ColorSenser.getColor();
+    double red =  detectedColor.red*100-1;
+    double green = detectedColor.green*100-1;
+    double blue =  detectedColor.blue*100-1;
 
     SmartDashboard.putNumber("red", red);
     SmartDashboard.putNumber("g", green);
     SmartDashboard.putNumber("b", blue);
 
-    result = String.valueOf( (int) red) + String.valueOf( (int) green) + String.valueOf( (int) blue); 
+    String resultr = String.valueOf( (int) red); 
+    String resultg = String.valueOf( (int) green); 
+    String resultb = String.valueOf( (int) blue); 
+
+    resultr = (resultr.length() == 1 ? "0" : "") + resultr;
+    resultg = (resultg.length() == 1 ? "0" : "") + resultg;
+    resultb = (resultb.length() == 1 ? "0" : "") + resultb;
+
+    result = resultr + resultg + resultb;
 
     SmartDashboard.putString("color output", result); 
 
