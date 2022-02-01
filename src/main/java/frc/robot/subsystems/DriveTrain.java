@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.nio.file.FileSystemAlreadyExistsException;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -61,6 +60,12 @@ public class DriveTrain extends SubsystemBase {
     resetHeading();
 
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+
+    
+    frontLeft.configNeutralDeadband(0.15);
+    backLeft.configNeutralDeadband(0.15);
+    frontRight.configNeutralDeadband(0.15);
+    backRight.configNeutralDeadband(0.15);
 
     
 
