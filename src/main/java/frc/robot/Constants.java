@@ -48,6 +48,7 @@ public final class Constants {
     public static final int SonicChannel = 0;
     public static final int falconMaxSpeed = 19452; 
     public static final int m_gatewayHolder = 0;
-    public static final int gatewayID = 2; 
+    public static final int gatewayID = 2;
+    public static final int LimitSwitchPort = 0; 
     
 }

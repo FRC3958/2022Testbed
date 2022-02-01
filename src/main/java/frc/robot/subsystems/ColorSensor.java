@@ -49,7 +49,7 @@ public class ColorSensor extends SubsystemBase {
     return returnRoundedConcatenatedColorPercents(Color.kBlue);
   }
 
-  public String returnRoundedConcatenatedColorPercents(Color detectedColor) {
+  public static String returnRoundedConcatenatedColorPercents(Color detectedColor) {
     String result = "";
     //Color detectedColor = ColorSenser.getColor();
     double red =  detectedColor.red*100-1;

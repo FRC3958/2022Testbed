@@ -19,7 +19,7 @@ public class ArduinoDefault extends CommandBase {
     m_cs = cs;
     m_xb = xb; 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_a);
+    addRequirements();
   }
 
   // Called when the command is initially scheduled.

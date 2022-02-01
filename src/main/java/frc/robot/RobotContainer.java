@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -16,6 +17,7 @@ import frc.robot.commands.ArduinoDefault;
 import frc.robot.commands.AutonDrivingFullRoutine;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.DrivingCommand;
+import frc.robot.commands.LimitSwitchDefault;
 import frc.robot.commands.ShootingCommand;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.Arduino;
@@ -23,6 +25,7 @@ import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gateway;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.UltraSensor;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -41,6 +44,7 @@ public class RobotContainer {
   private final XboxController m_xc = new XboxController(Constants.Controller0ID);
   private final Limelight m_limelight = new Limelight(); 
   private final UltraSensor m_UltraSensor = new UltraSensor();
+  private final LimitSwitch m_LimitSwitch = new LimitSwitch();
   
 //really importanter commenter
   private final DrivingCommand m_drivingCommand = new DrivingCommand(m_driveTrain, m_xc);
@@ -53,6 +57,7 @@ public class RobotContainer {
   //private final ArduinoDefault m_arduinoDefaultCommand = new ArduinoDefault(m_arduino, m_colorSensor, m_xc);
   
   private final AutonDrivingFullRoutine m_autonCommand = new AutonDrivingFullRoutine(m_driveTrain);
+  private final LimitSwitchDefault m_limitSwitchCommand = new LimitSwitchDefault(m_LimitSwitch, m_arduino); 
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -78,6 +83,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_driveTrain.setDefaultCommand(m_drivingCommand);
+    m_LimitSwitch.setDefaultCommand(m_limitSwitchCommand);
     //m_arduino.setDefaultCommand(m_arduinoDefaultCommand);
 
     new JoystickButton(m_xc, Constants.AButtonID)
