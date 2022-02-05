@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArduinoDefault;
 import frc.robot.commands.AutonDrivingFullRoutine;
+import frc.robot.commands.CamTurn;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.commands.LimitSwitchDefault;
@@ -72,6 +73,8 @@ public class RobotContainer {
     configureButtonBindings();
     SmartDashboard.putData(new DriveToDistance(m_driveTrain, SmartDashboard.getNumber("distance to travel", 0)));
     SmartDashboard.putData(new TurnToAngle(m_driveTrain, SmartDashboard.getNumber("goal angle", 0)));
+
+    SmartDashboard.putNumber("yaw", 0);
   }
 
   /**
