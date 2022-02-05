@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -15,6 +18,9 @@ public class Limelight extends SubsystemBase {
   /** Creates a new Limelight. */
   //static ip: 10:39:58:11
   NetworkTable limetable = NetworkTableInstance.getDefault().getTable("limelight");
+  
+  PhotonCamera camera = new PhotonCamera("photonvision");
+  PhotonPipelineResult result = new PhotonPipelineResult();
 
   public Limelight() {
       
@@ -39,6 +45,9 @@ public class Limelight extends SubsystemBase {
   
   public void turnLEDOff() {
     limetable.getEntry("ledMode").setNumber(1); //force led off
+  }
+  public boolean hasValidTarget() { 
+    return result.hasTargets();
   }
 
 }

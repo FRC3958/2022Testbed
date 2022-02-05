@@ -44,6 +44,9 @@ public class RobotContainer {
   private final DrivingCommand m_drivingCommand = new DrivingCommand(m_driveTrain, m_xc);
   //private final Compressor m_compressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.CTREPCM);
   //private final DoubleSolenoid m_ds = new DoubleSolenoid(Constants.PCMCANID, PneumaticsModuleType.CTREPCM, Constants.PCMForwardChannel, Constants.PCMReverseChannel);
+  
+  //private final CamTurn m_camTurn = new CamTurn(m_limelight);
+
   private final Shooter m_shooter = new Shooter(); 
   private final Gateway m_gateway = new Gateway();
   
@@ -62,7 +65,7 @@ public class RobotContainer {
     SmartDashboard.putData(new DriveToDistance(m_driveTrain, SmartDashboard.getNumber("distance to travel", 0)));
     SmartDashboard.putData(new TurnToAngle(m_driveTrain, SmartDashboard.getNumber("goal angle", 0)));
 
-    SmartDashboard.putNumber("yaw", 0);
+    //SmartDashboard.putNumber("yaw", m_camTurn.execute());
   }
 
   /**
