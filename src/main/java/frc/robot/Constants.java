@@ -16,17 +16,29 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  */
 public final class Constants {
 
-    public static final int frontLeftMotorID = 10;
-    public static final int backLeftMotorID = 11;
+    // motor IDs
+    public static final int frontLeftMotorID = 11; 
+    public static final int backLeftMotorID = 10;
     public static final int frontRightMotorID = 12;
     public static final int backRightMotorID = 13;
+
+    // Xbox Constants
     public static final int LeftJoystickYAxis = 1;
     public static final int RightJoystickXAxis = 4;
+    public static final int AButtonID = 1;
+    public static final int BButtonID = 2;
+    public static final int XButtonID = 3;
+    public static final int YButtonID = 4;
+    public static final int bumperLeft = 5;
+    public static final int bumperRight = 6;
+    public static final int leftStick = 9;
+    public static final int rightStick = 10;
+
+    
     public static final int Controller0ID = 0;
     public static final int PCMCANID = 15;
     public static final int Solenoid0Channel = 0;
-    public static final int AButtonID = 1;
-    public static final int BButtonID = 2;
+
     public static final int PCMForwardChannel = 0;
     public static final int PCMReverseChannel = 1; 
     public static final int StartButtonID = 8; 
@@ -38,9 +50,8 @@ public final class Constants {
     public static final double kP = 0.1125; 
     public static final double kI = 0.0001; 
     public static final double kD = 1.5;
-    public static final int FXCANID = 21;
-    public static final int XButtonID = 3;
-    public static final int YButtonID = 4;
+    //public static final int FXCANID = 21;
+    
     public static final int kTimeout = 30;
     public static final double QuadEncoderResolution = 2048; //TODO this should be 4096, but the robot was going double the distance
     public static final double WheelDiameter = 0.1524; 
@@ -49,5 +60,24 @@ public final class Constants {
     public static final int falconMaxSpeed = 19452; 
     public static final int m_gatewayHolder = 0;
     public static final int gatewayID = 2; 
+
+    // climer 
+    public static final int ClimberLeftID = 22; 
+    public static final int ClimberRightID = 23;
+    public static final int kTurnTravelUnitsPerRotation = 1;
+    public static final int kEncoderUnitsPerRotation = 1;
+    public static final double kGains_TurningkF = 0;
+    public static final double kGains_TurningkP = 2;
+    public static final double kGains_TurningkI = 0;
+    public static final double kGains_TurningkD = 4;
+    public static final double kGains_TurningkIzone = 200;
+    public static final double kGains_TurningkPeakOutput = 1;
+    public static final int kTimeoutMs = 30;
+    public static final int kSlot_Turning = 1;
+    public static final int PID_TURN = 1; 
+    
+    
+
+
     
 }
