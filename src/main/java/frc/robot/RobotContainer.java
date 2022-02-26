@@ -45,11 +45,12 @@ public class RobotContainer {
   private final UltraSensor m_UltraSensor = new UltraSensor();
   */
   private final TesterClimber m_climber = new TesterClimber();
-  private final Climbing m_climberCommand = new Climbing(m_climber);
+  //private final Climbing m_climberCommand = new Climbing(m_climber);
   
 //really importanter commenter
   private final DrivingCommand m_drivingCommand = new DrivingCommand(m_driveTrain, m_xc);
-  private final Compressor m_compressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.CTREPCM);
+  //
+  //ppprivate final Compressor m_compressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.CTREPCM);
   /*private final DoubleSolenoid m_ds = new DoubleSolenoid(Constants.PCMCANID, PneumaticsModuleType.CTREPCM, Constants.PCMForwardChannel, Constants.PCMReverseChannel);
   
   private final CamTurn m_camTurn = new CamTurn(m_limelight);
@@ -61,7 +62,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_compressor.disable(); 
+    //m_compressor.disable(); 
     /*m_limelight.turnLEDOn();
     SmartDashboard.putNumber("set speed", 0);
     SmartDashboard.putNumber("distance to travel", 0); 
@@ -97,18 +98,22 @@ public class RobotContainer {
       .whenPressed(() -> m_limelight.turnLEDOn())
       .whenReleased(() -> m_limelight.turnLEDOff());
 
-    //new JoystickButton(m_xc, Constants.XButtonID)
-    //  .whenPressed(() -> m_shooter.setToPercentSpeed(0.5))
-    //  .whenReleased(() -> m_shooter.setToPercentSpeed(0));
-
+    
     new JoystickButton(m_xc, Constants.YButtonID)
       .whenPressed(new ShootingCommand(m_shooter, m_UltraSensor, m_gateway));
       */
 
-    //left bumpie
-    new JoystickButton(m_xc, Constants.bumperLeft)
-    .whenHeld(m_climberCommand);
-    //.when(() -> m_climber.setPercentOutput(0.0))
+    new JoystickButton(m_xc, Constants.XButtonID)
+      .whenPressed(() -> m_climber.setTurnOutput(.25))
+      .whenReleased(() -> m_climber.setTurnOutput(0));
+
+    new JoystickButton(m_xc, Constants.BButtonID)
+      .whenPressed(() -> m_climber.setTurnOutput(-.25))
+      .whenReleased(() -> m_climber.setTurnOutput(0));
+
+    new JoystickButton(m_xc, Constants.StartButtonID)
+      .whenPressed(() -> m_climber.resetEncoders());
+
 
   }
 

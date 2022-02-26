@@ -74,7 +74,18 @@ public final class Constants {
     public static final double kGains_TurningkPeakOutput = 1;
     public static final int kTimeoutMs = 30;
     public static final int kSlot_Turning = 1;
-    public static final int PID_TURN = 1; 
+    public static final int PID_TURN = 1; //12.25 gear ratio 
+    public static final int TurningSRXID = 4; 
+
+    public static double getDegreesFromNativeUnits(double nu) {
+        return ((nu/4096.0)*360.0) / 2.8888888;
+    }
+
+    public static double getNativeUnitsFromDegrees(double d) {
+        return (d/360.0) * 4096 * 2.8888888;
+    }
+
+
     
     
 
