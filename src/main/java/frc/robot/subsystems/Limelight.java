@@ -17,9 +17,11 @@ import frc.robot.Constants;
 public class Limelight extends SubsystemBase {
   /** Creates a new Limelight. */
   //static ip: 10:39:58:11
-  NetworkTable limetable = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTable limetable = NetworkTableInstance.getDefault().getTable("limelight");
+
   
-  PhotonCamera camera = new PhotonCamera("photonvision");
+
+  PhotonCamera camera = new PhotonCamera("3958Limelight");
   PhotonPipelineResult result = new PhotonPipelineResult();
 
   public Limelight() {
