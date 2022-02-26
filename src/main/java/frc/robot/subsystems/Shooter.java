@@ -16,7 +16,7 @@ import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
-  private WPI_TalonFX m_talon = new WPI_TalonFX(Constants.FXCANID); 
+  private WPI_TalonFX m_talon = new WPI_TalonFX(0); 
   public Shooter() {
     m_talon.configFactoryDefault();
     TalonFXConfiguration configs = new TalonFXConfiguration();
