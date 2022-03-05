@@ -10,7 +10,7 @@ import frc.robot.Constants;
 
 public class LimitSwitch extends SubsystemBase {
 
-  private DigitalInput limitswitch = new DigitalInput(Constants.LimitSwitchPort);
+  private DigitalInput limitswitch = new DigitalInput(0);
 
   /** Creates a new LimitSwitch. */
   public LimitSwitch() {

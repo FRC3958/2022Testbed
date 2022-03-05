@@ -50,6 +50,7 @@ public class RobotContainer {
 
   */
   private final TesterClimber m_climber = new TesterClimber();
+  private final AutonDrivingFullRoutine m_autonCommand = new AutonDrivingFullRoutine(m_driveTrain);
   //private final Climbing m_climberCommand = new Climbing(m_climber);
 
   
@@ -95,7 +96,7 @@ public class RobotContainer {
 
     m_driveTrain.setDefaultCommand(m_drivingCommand);
 
-    
+    /*
 
 
     new JoystickButton(m_xc, Constants.StartButtonID)
