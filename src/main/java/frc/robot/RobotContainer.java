@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -12,14 +13,19 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ArduinoDefault;
 import frc.robot.commands.AutonDrivingFullRoutine;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.DrivingCommand;
+import frc.robot.commands.LimitSwitchDefault;
 import frc.robot.commands.ShootingCommand;
 import frc.robot.commands.TurnToAngle;
+import frc.robot.subsystems.Arduino;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gateway;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TesterClimber;
 import frc.robot.subsystems.UltraSensor;
@@ -41,9 +47,11 @@ public class RobotContainer {
   /*
   private final Limelight m_limelight = new Limelight(); 
   private final UltraSensor m_UltraSensor = new UltraSensor();
+
   */
   private final TesterClimber m_climber = new TesterClimber();
   //private final Climbing m_climberCommand = new Climbing(m_climber);
+
   
 //really importanter commenter
   private final DrivingCommand m_drivingCommand = new DrivingCommand(m_driveTrain, m_xc);
@@ -55,8 +63,11 @@ public class RobotContainer {
 
   private final Shooter m_shooter = new Shooter(); 
   private final Gateway m_gateway = new Gateway();
-  */
+
+
   private final AutonDrivingFullRoutine m_autonCommand = new AutonDrivingFullRoutine(m_driveTrain);
+  private final LimitSwitchDefault m_limitSwitchCommand = new LimitSwitchDefault(m_LimitSwitch, m_arduino); 
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -83,14 +94,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_driveTrain.setDefaultCommand(m_drivingCommand);
-/*
-    new JoystickButton(m_xc, Constants.AButtonID)
-      .whenPressed(() -> m_driveTrain.resetHeading()); 
 
-      /** 
-    new JoystickButton(m_xc, Constants.BButtonID)
-      .whenPressed(() -> m_ds.set(Value.kForward))
-      .whenReleased(() -> m_ds.set(Value.kReverse)); 
+    
+
 
     new JoystickButton(m_xc, Constants.StartButtonID)
       .whenPressed(() -> m_limelight.turnLEDOn())

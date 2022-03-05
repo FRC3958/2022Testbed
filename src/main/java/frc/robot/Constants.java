@@ -59,6 +59,7 @@ public final class Constants {
     public static final int SonicChannel = 0;
     public static final int falconMaxSpeed = 19452; 
     public static final int m_gatewayHolder = 0;
+
     public static final int gatewayID = 2; 
 
     // climer 
@@ -79,11 +80,5 @@ public final class Constants {
     public static double nativeUnitsToDegrees(double selectedSensorPosition) {
         return ((selectedSensorPosition / 2048) * 360) * .11111111;
     }
-
-
-    
-    
-
-
     
 }
