@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArduinoDefault;
 import frc.robot.commands.AutonDrivingFullRoutine;
-import frc.robot.commands.CamTurn;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.commands.LimitSwitchDefault;
@@ -28,6 +27,7 @@ import frc.robot.subsystems.Gateway;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.TesterClimber;
 import frc.robot.subsystems.UltraSensor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -41,22 +41,30 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
+  
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final XboxController m_xc = new XboxController(Constants.Controller0ID);
+  /*
   private final Limelight m_limelight = new Limelight(); 
   private final UltraSensor m_UltraSensor = new UltraSensor();
-  private final LimitSwitch m_LimitSwitch = new LimitSwitch();
+
+  */
+  private final TesterClimber m_climber = new TesterClimber();
+  //private final Climbing m_climberCommand = new Climbing(m_climber);
+
   
 //really importanter commenter
   private final DrivingCommand m_drivingCommand = new DrivingCommand(m_driveTrain, m_xc);
-  //private final Compressor m_compressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.CTREPCM);
-  //private final DoubleSolenoid m_ds = new DoubleSolenoid(Constants.PCMCANID, PneumaticsModuleType.CTREPCM, Constants.PCMForwardChannel, Constants.PCMReverseChannel);
+  //
+  //ppprivate final Compressor m_compressor = new Compressor(Constants.PCMCANID, PneumaticsModuleType.CTREPCM);
+  /*private final DoubleSolenoid m_ds = new DoubleSolenoid(Constants.PCMCANID, PneumaticsModuleType.CTREPCM, Constants.PCMForwardChannel, Constants.PCMReverseChannel);
+  
+  private final CamTurn m_camTurn = new CamTurn(m_limelight);
+
   private final Shooter m_shooter = new Shooter(); 
   private final Gateway m_gateway = new Gateway();
-  private final ColorSensor m_colorSensor = new ColorSensor();
-  private final Arduino m_arduino = new Arduino(); 
-  //private final ArduinoDefault m_arduinoDefaultCommand = new ArduinoDefault(m_arduino, m_colorSensor, m_xc);
-  
+
+
   private final AutonDrivingFullRoutine m_autonCommand = new AutonDrivingFullRoutine(m_driveTrain);
   private final LimitSwitchDefault m_limitSwitchCommand = new LimitSwitchDefault(m_LimitSwitch, m_arduino); 
 
@@ -64,17 +72,17 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //m_compressor.disable(); 
-    m_limelight.turnLEDOn();
+    /*m_limelight.turnLEDOn();
     SmartDashboard.putNumber("set speed", 0);
     SmartDashboard.putNumber("distance to travel", 0); 
     //SmartDashboard.putNumber("goal angle", 0);
-    //SmartDashboard.putData(new ShootingCommand(m_shooter, m_UltraSensor));
+    //SmartDashboard.putData(new ShootingCommand(m_shooter, m_UltraSensor));*/
         // Configure the button bindings
     configureButtonBindings();
+    /*
     SmartDashboard.putData(new DriveToDistance(m_driveTrain, SmartDashboard.getNumber("distance to travel", 0)));
-    SmartDashboard.putData(new TurnToAngle(m_driveTrain, SmartDashboard.getNumber("goal angle", 0)));
+    SmartDashboard.putData(new TurnToAngle(m_driveTrain, SmartDashboard.getNumber("goal angle", 0)));*/
 
-    SmartDashboard.putNumber("yaw", 0);
   }
 
   /**
@@ -86,26 +94,42 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_driveTrain.setDefaultCommand(m_drivingCommand);
-    m_LimitSwitch.setDefaultCommand(m_limitSwitchCommand);
-    //m_arduino.setDefaultCommand(m_arduinoDefaultCommand);
-
-    new JoystickButton(m_xc, Constants.AButtonID)
-      .whenPressed(() -> m_driveTrain.resetHeading()); 
 
     
-    new JoystickButton(m_xc, Constants.BButtonID)
-      .whenPressed(new ArduinoDefault(m_arduino, m_colorSensor, m_xc));
+
 
     new JoystickButton(m_xc, Constants.StartButtonID)
       .whenPressed(() -> m_limelight.turnLEDOn())
       .whenReleased(() -> m_limelight.turnLEDOff());
 
-    //new JoystickButton(m_xc, Constants.XButtonID)
-    //  .whenPressed(() -> m_shooter.setToPercentSpeed(0.5))
-    //  .whenReleased(() -> m_shooter.setToPercentSpeed(0));
+    
+      */
 
+    new JoystickButton(m_xc, Constants.XButtonID)
+      .whenPressed(() -> m_climber.turnArm(.15))
+      .whenReleased(() -> m_climber.turnArm(0));
+
+    new JoystickButton(m_xc, Constants.BButtonID)
+      .whenPressed(() -> m_climber.turnArm(-.15))
+      .whenReleased(() -> m_climber.turnArm(0));
+
+    new JoystickButton(m_xc, Constants.StartButtonID)
+      .whenPressed(() -> m_climber.resetEncoders());
+
+      
     new JoystickButton(m_xc, Constants.YButtonID)
-      .whenPressed(new ShootingCommand(m_shooter, m_UltraSensor, m_gateway));
+      .whenPressed(() -> m_climber.pullUpDown(0.4))
+      .whenReleased(() -> m_climber.pullUpDown(0));
+
+    
+    new JoystickButton(m_xc, Constants.AButtonID)
+      .whenPressed(() -> m_climber.pullUpDown(-0.4))
+      .whenReleased(() -> m_climber.pullUpDown(0));
+
+    new JoystickButton(m_xc, Constants.BackButtonID) 
+      .whenPressed(() -> m_climber.setArmPosition(0))
+      .whenReleased(() -> m_climber.turnArm(0));
+
 
   }
 
@@ -116,8 +140,10 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+  
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autonCommand;
   }
+  
 }

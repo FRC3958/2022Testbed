@@ -31,7 +31,7 @@ public class DrivingCommand extends CommandBase {
   @Override
   public void execute() {
     // new 
-    dt.drivingMethod(-0.5*xc.getLeftY(), 0.5*xc.getRightX());
+    dt.drivingMethod(-.01*xc.getLeftY(), 0.01*xc.getRightX());
     
   }
 
