@@ -4,94 +4,118 @@
 
 package frc.robot.subsystems;
 
-import java.util.ResourceBundle.Control;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.FollowerType;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class TesterClimber extends SubsystemBase {
-private final WPI_TalonFX climberLeft = new WPI_TalonFX(Constants.ClimberLeftID);
-private final WPI_TalonFX climberRight = new WPI_TalonFX(Constants.ClimberRightID);
-private final WPI_TalonSRX climberTurning = new WPI_TalonSRX(Constants.TurningSRXID);
-TalonFXConfiguration rightConfig = new TalonFXConfiguration();
-TalonFXConfiguration leftConfig = new TalonFXConfiguration();
-TalonSRXConfiguration turnConfig = new TalonSRXConfiguration();
+public class TesterClimber extends SubsystemBase{
+	private final WPI_TalonFX climberLeft = new WPI_TalonFX(Constants.ClimberLeftID);
+	private final WPI_TalonFX climberRight = new WPI_TalonFX(Constants.ClimberRightID);
+	private final WPI_TalonSRX climberTurn = new WPI_TalonSRX(Constants.ClimberTurnID);
 
-  /** Creates a new TesterClimber. */
-  public TesterClimber() {
-    climberLeft.configFactoryDefault();
-    climberRight.configFactoryDefault();
-    climberTurning.configFactoryDefault();
+	private final  TalonFXConfiguration  config = new TalonFXConfiguration(); 
+	private final TalonSRXConfiguration c = new TalonSRXConfiguration();
 
-    rightConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
-    leftConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
-		turnConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
+	private final DigitalInput climberStaticLeft = new DigitalInput(Constants.climberStaticLeftLimitChannel);
+	private final DigitalInput climberStaticRight = new DigitalInput(Constants.climberStaticRightLimitChannel);
+	private final DigitalInput climberDynamicLeft = new DigitalInput(Constants.climberDynamicLeftLimitChannel);
+	private final DigitalInput climberDynamicRight = new DigitalInput(Constants.climberDynamicRightLimitChannel);
 
+	private final AHRS navx = new AHRS(Port.kMXP); //TODO is reusing navx a good thing?
+	
+	public TesterClimber() {
+		climberLeft.configFactoryDefault();
+		climberRight.configFactoryDefault();
+		climberTurn.configFactoryDefault();
 
-    rightConfig.slot0.kP = 1;
-    rightConfig.slot0.kI = 0.01;
-    rightConfig.slot0.kD = 5;
+		config.slot0.kP = 1;
+		config.slot0.kI = 0.009;
+		config.slot0.kD = 8;
 
-    rightConfig.slot1.kP = 2; 
+		config.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
+		c.primaryPID.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
 
-    rightConfig.remoteFilter1.remoteSensorDeviceID = climberLeft.getDeviceID(); //Device ID of Remote Source
-		rightConfig.remoteFilter1.remoteSensorSource = RemoteSensorSource.TalonFX_SelectedSensor; //Remote Source Type
+		climberLeft.configAllSettings(config);
+		climberRight.configAllSettings(config);
+		climberTurn.configAllSettings(c);
 
-    
-    climberLeft.configAllSettings(leftConfig);
-    climberRight.configAllSettings(rightConfig);
-    climberTurning.configAllSettings(turnConfig);
+		climberLeft.setNeutralMode(NeutralMode.Brake);
+		climberRight.setNeutralMode(NeutralMode.Brake);
+		climberTurn.setNeutralMode(NeutralMode.Brake);
 
-    climberLeft.setNeutralMode(NeutralMode.Brake);
-    climberRight.setNeutralMode(NeutralMode.Brake);
-    climberTurning.setNeutralMode(NeutralMode.Brake);
+		//TODO motor inversions?
+		climberRight.setInverted(InvertType.InvertMotorOutput);
 
-    climberLeft.follow(climberRight, FollowerType.AuxOutput1);
+		climberRight.follow(climberLeft);
+	}
 
-    resetEncoders();
+	@Override
+	public void periodic() {
+		SmartDashboard.putNumber("arm position", getArmAngle());
+    	SmartDashboard.putNumber("arm height", getArmHeight());
+		SmartDashboard.putBoolean("static arm on", staticArmOn());
+		SmartDashboard.putBoolean("dynamic arm on", dynamicArmOn());
+		SmartDashboard.putNumber("robot pitch", getRobotPitch());
+	}
 
-  }
+	public void turnArm(double speed) {
+		climberTurn.set(speed);
+	}
 
-  public void setVerticalOutput(double speed){
-    climberRight.set(ControlMode.PercentOutput, speed);
+	public void setArmPosition(double degrees) {
+		climberTurn.set(ControlMode.Position, Constants.degreesToNativeUnits(degrees));
+	}
 
-  }
+	public void pullUpDown(double speed) {
+		climberLeft.set(speed);
+	}
 
-  public void setTurnOutput(double speed) {
-    climberTurning.set(ControlMode.PercentOutput, speed);
-  }
+	public void setArmHeight(double height) {
+		climberLeft.set(ControlMode.Position, height);
+	}
 
-  public void setToAngle(double a) {
-    double ca = Constants.getNativeUnitsFromDegrees(a);
-    climberTurning.set(ControlMode.Position, ca);
-  }
+	public double getArmHeight() {
+		return climberLeft.getSelectedSensorPosition();
+	}
 
-  public void resetEncoders() {
-    climberLeft.getSensorCollection().setIntegratedSensorPosition(0, 30); //30 ms timeout for a response 
-    climberRight.getSensorCollection().setIntegratedSensorPosition(0, 30);
-    climberTurning.getSensorCollection().setQuadraturePosition(0, 30);
-  }
+	public double getArmAngle() {
+		return Constants.nativeUnitsToDegrees(climberTurn.getSelectedSensorPosition());
+	}
 
+	public boolean staticArmOn() {
+		return !climberStaticLeft.get() && !climberStaticRight.get();
+	}
 
+	public boolean dynamicArmOn() {
+		return !climberDynamicLeft.get() && !climberDynamicRight.get();
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+	public double getRobotPitch() {
+		return navx.getPitch();
+	}
 
-    //SmartDashboard.putNumber("Climber angle", Constants.getDegreesFromNativeUnits(climberTurning.getSelectedSensorPosition()));
-    SmartDashboard.putNumber("climber pos", climberTurning.getSelectedSensorPosition());
-    
-  }
+	public void stopAllMotors() {
+		climberLeft.set(0);
+		climberTurn.set(0);
+	}
+
+	public void resetEncoders() {
+		climberLeft.getSensorCollection().setIntegratedSensorPosition(0, 30);
+		climberRight.getSensorCollection().setIntegratedSensorPosition(0, 30);
+		climberTurn.getSensorCollection().setQuadraturePosition(0, 30);
+	}
+
+	
 }

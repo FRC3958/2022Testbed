@@ -64,25 +64,20 @@ public final class Constants {
     // climer 
     public static final int ClimberLeftID = 22; 
     public static final int ClimberRightID = 23;
-    public static final int kTurnTravelUnitsPerRotation = 1;
-    public static final int kEncoderUnitsPerRotation = 1;
-    public static final double kGains_TurningkF = 0;
-    public static final double kGains_TurningkP = 2;
-    public static final double kGains_TurningkI = 0;
-    public static final double kGains_TurningkD = 4;
-    public static final double kGains_TurningkIzone = 200;
-    public static final double kGains_TurningkPeakOutput = 1;
     public static final int kTimeoutMs = 30;
-    public static final int kSlot_Turning = 1;
-    public static final int PID_TURN = 1; //12.25 gear ratio 
-    public static final int TurningSRXID = 4; 
+    public static final int ClimberTurnID = 4;
+    public static final int climberStaticLeftLimitChannel = 2;
+    public static final int climberStaticRightLimitChannel = 3;
+    public static final int climberDynamicLeftLimitChannel = 0;
+    public static final int climberDynamicRightLimitChannel = 1;
+    public static final int BackButtonID = 7; 
 
-    public static double getDegreesFromNativeUnits(double nu) {
-        return ((nu/4096.0)*360.0) / 2.8888888;
+    public static double degreesToNativeUnits(double degrees) {
+        return ((degrees / 360) * 2048) / .1111111;
     }
 
-    public static double getNativeUnitsFromDegrees(double d) {
-        return (d/360.0) * 4096 * 2.8888888;
+    public static double nativeUnitsToDegrees(double selectedSensorPosition) {
+        return ((selectedSensorPosition / 2048) * 360) * .11111111;
     }
 
 

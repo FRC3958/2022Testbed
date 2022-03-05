@@ -68,6 +68,7 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
+    /*
     // This method will be called once per scheduler run
     m_odometry.update(
       Rotation2d.fromDegrees(getHeading()), 
@@ -76,6 +77,7 @@ public class DriveTrain extends SubsystemBase {
     );
     
     SmartDashboard.putNumber("heading", getHeading());
+    */
   }
 
   public void drivingMethod(double forward, double turn) {

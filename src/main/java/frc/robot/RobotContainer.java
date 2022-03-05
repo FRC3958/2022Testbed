@@ -13,12 +13,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonDrivingFullRoutine;
-import frc.robot.commands.Climbing;
 import frc.robot.commands.DriveToDistance;
 import frc.robot.commands.DrivingCommand;
 import frc.robot.commands.ShootingCommand;
 import frc.robot.commands.TurnToAngle;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gateway;
 import frc.robot.subsystems.Limelight;
@@ -99,20 +97,32 @@ public class RobotContainer {
       .whenReleased(() -> m_limelight.turnLEDOff());
 
     
-    new JoystickButton(m_xc, Constants.YButtonID)
-      .whenPressed(new ShootingCommand(m_shooter, m_UltraSensor, m_gateway));
       */
 
     new JoystickButton(m_xc, Constants.XButtonID)
-      .whenPressed(() -> m_climber.setTurnOutput(.25))
-      .whenReleased(() -> m_climber.setTurnOutput(0));
+      .whenPressed(() -> m_climber.turnArm(.15))
+      .whenReleased(() -> m_climber.turnArm(0));
 
     new JoystickButton(m_xc, Constants.BButtonID)
-      .whenPressed(() -> m_climber.setTurnOutput(-.25))
-      .whenReleased(() -> m_climber.setTurnOutput(0));
+      .whenPressed(() -> m_climber.turnArm(-.15))
+      .whenReleased(() -> m_climber.turnArm(0));
 
     new JoystickButton(m_xc, Constants.StartButtonID)
       .whenPressed(() -> m_climber.resetEncoders());
+
+      
+    new JoystickButton(m_xc, Constants.YButtonID)
+      .whenPressed(() -> m_climber.pullUpDown(0.4))
+      .whenReleased(() -> m_climber.pullUpDown(0));
+
+    
+    new JoystickButton(m_xc, Constants.AButtonID)
+      .whenPressed(() -> m_climber.pullUpDown(-0.4))
+      .whenReleased(() -> m_climber.pullUpDown(0));
+
+    new JoystickButton(m_xc, Constants.BackButtonID) 
+      .whenPressed(() -> m_climber.setArmPosition(0))
+      .whenReleased(() -> m_climber.turnArm(0));
 
 
   }
